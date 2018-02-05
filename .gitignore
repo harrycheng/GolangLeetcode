@@ -1,6 +1,6 @@
-<<<<<<< HEAD
+ 
 /sorter/src/*.exe
-=======
+ 
 # Binaries for programs and plugins
 *.exe
 *.dll
@@ -15,4 +15,4 @@
 
 # Project-local glide cache, RE: https://github.com/Masterminds/glide/issues/736
 .glide/
->>>>>>> 46a0dbc074d4c4f75d2dc7a39f5ab0d50c337f83
+ 
