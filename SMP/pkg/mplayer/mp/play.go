@@ -7,6 +7,7 @@ type Player interface {
 }
 
 func Play(source, mtype string) {
+	fmt.Println(source, mtype)
 	var p Player
 	switch mtype {
 	case "MP3":

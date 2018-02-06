@@ -1,6 +1,9 @@
 package library
 
-import "errors"
+import (
+	"errors"
+	"fmt"
+)
 
 type MusicEntry struct {
 	Id     string
@@ -30,22 +33,23 @@ func (m *MusicManager) Get(index int) (music *MusicEntry, err error) {
 	return &m.musics[index], nil
 }
 
-func (m *MusicManager) Find(name string) *MusicEntry {
+func (m *MusicManager) Find(name string) (index int, music *MusicEntry) {
 	if len(m.musics) == 0 {
-		return nil
+		return 0, nil
 	}
 
-	for _, m := range m.musics {
+	for index, m := range m.musics {
 		if m.Name == name {
-			return &m
+			return index, &m
 		}
 	}
 
-	return nil
+	return 0, nil
 }
 
 func (m *MusicManager) Add(music *MusicEntry) {
 	m.musics = append(m.musics, *music)
+	fmt.Println(music)
 }
 
 func (m *MusicManager) Remove(index int) *MusicEntry {
@@ -53,13 +57,22 @@ func (m *MusicManager) Remove(index int) *MusicEntry {
 		return nil
 	}
 	removedMusic := &m.musics[index]
-	if index < len(m.musics)-1 { // go 分片负值意义
-		//if index > 0 && index < len(m.musics) - 1 {  // go 分片负值意义
-		m.musics = append(m.musics[:index-1], m.musics[index+1:]...)
+	if index < len(m.musics)-1 { // index (0, len - 1)
+		m.musics = append(m.musics[:index], m.musics[index+1:]...)
 	} else if index == 0 {
 		m.musics = make([]MusicEntry, 0)
 	} else {
 		m.musics = m.musics[:index-1]
 	}
 	return removedMusic
+}
+
+func (m *MusicManager) RemoveByName(name string) *MusicEntry {
+	index, music := m.Find(name)
+	if music == nil {
+		fmt.Println("not found...", name)
+		return nil
+	}
+
+	return m.Remove(index)
 }

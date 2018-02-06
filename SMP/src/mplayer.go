@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"strconv"
 	"strings"
 
 	"hc.com/SMP/pkg/mplayer/library"
@@ -21,8 +22,22 @@ func handleLibCommans(tokens []string) {
 			e, _ := lib.Get(i)
 			fmt.Println(i+1, ":", e.Name)
 		}
+	case "add":
+		if len(tokens) == 6 {
+			id++
+			lib.Add(&library.MusicEntry{strconv.Itoa(id), tokens[2], tokens[3], tokens[4], tokens[5]})
+		} else {
+			fmt.Println("use age : lib add name artist source type")
+		}
+	case "remove":
+		if len(tokens) == 3 {
+			lib.RemoveByName(tokens[2])
+		} else {
+			fmt.Println("useage : lib remove name")
+		}
+
 	default:
-		fmt.Println("unsupport ", tokens[1])
+		fmt.Println("Unrecognized lib command ", tokens[1])
 	}
 }
 
@@ -32,7 +47,7 @@ func handlePlayCommand(tokens []string) {
 		return
 	}
 
-	e := lib.Find(tokens[1])
+	_, e := lib.Find(tokens[1])
 	if e == nil {
 		fmt.Println("The music ", tokens[1], "does not exist")
 		return
@@ -56,6 +71,7 @@ func main() {
 		}
 
 		tokens := strings.Split(line, " ")
+		fmt.Println(tokens)
 		if tokens[0] == "lib" {
 			handleLibCommans(tokens)
 		} else if tokens[0] == "play" {
