@@ -6,6 +6,7 @@ import (
 )
 
 func main()  {
-	fmt.Print("main")
-	mysolution.TwoSumTest()
+	fmt.Println("leetcode")
+	//mysolution.TwoSumTest()
+	mysolution.TestAddTwoNumbers()
 }
