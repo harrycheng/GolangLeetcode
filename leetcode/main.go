@@ -8,5 +8,6 @@ import (
 func main()  {
 	fmt.Println("leetcode")
 	//mysolution.TwoSumTest()
-	mysolution.TestAddTwoNumbers()
+	//mysolution.TestAddTwoNumbers()
+	mysolution.TestshiftGrid()
 }
